@@ -1,0 +1,17 @@
+{
+  "name": "gustavonovaes/people",
+  "description": "A flat PHP application to manager people.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Gustavo Novaes",
+      "email": "gustavonovaes93@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "require": {}
+}
