@@ -21,3 +21,16 @@ function env($key, $default = null)
 
     return null;
 }
+
+function view ($template, array $data = [])
+{
+    extract($data);
+
+    $path = env('view_path') . "/{$template}.php";
+
+    if (!is_readable($path)) {
+        throw new InvalidArgumentException('Template not exists');
+    }
+
+    include $path;
+}
