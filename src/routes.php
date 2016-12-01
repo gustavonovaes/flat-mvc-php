@@ -1,8 +1,8 @@
 <?php
 
-use App\Route;
+use App\Router;
 
-$route = new Route();
+$route = new Router();
 
 $route->add('/', 'App\Controllers\PeopleController::show');
 

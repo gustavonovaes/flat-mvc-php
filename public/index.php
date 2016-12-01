@@ -6,4 +6,4 @@ require __DIR__ . '/../src/config.php';
 
 $route = require __DIR__ . '/../src/routes.php';
 
-$route->dispach();
+$route->dispatch();

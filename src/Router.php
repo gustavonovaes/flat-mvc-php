@@ -2,7 +2,7 @@
 
 namespace App;
 
-class Route
+class Router
 {
     private $routes = [];
 
@@ -11,7 +11,7 @@ class Route
         $this->routes[$uri] = $callback;
     }
 
-    public function dispach()
+    public function dispatch()
     {
         $request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
