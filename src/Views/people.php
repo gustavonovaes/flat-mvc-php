@@ -77,6 +77,17 @@
     </main>
 </div>
 
+<script>
+    $(function () {
+        var $table = $('table.table');
+        $table.floatThead({
+            scrollContainer: function ($table) {
+                return $table.closest('article');
+            }
+        });
+    });
+</script>
+
 <?php $content = ob_get_clean() ?>
 
 <?php include __DIR__ . '/layout.php' ?>
