@@ -4,8 +4,6 @@ use App\Route;
 
 $route = new Route();
 
-$route->add('/', function () {
-    view('test', ['test' => 'Works!']);
-});
+$route->add('/', 'App\Controllers\PeopleController::show');
 
 return $route;
