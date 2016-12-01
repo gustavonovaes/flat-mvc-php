@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Exceptions\NotFoundException;
+
 class Router
 {
     private $routes = [];
@@ -26,6 +28,6 @@ class Router
             return call_user_func($this->routes[$uri]);
         }
 
-        throw new \RuntimeException('Not found');
+        throw new NotFoundException("Any route match with '{$request_uri}'");
     }
 }
