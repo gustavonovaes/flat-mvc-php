@@ -17,54 +17,57 @@
 
         <article>
 
-            <table class="table">
+            <div class="wrapper">
 
-                <thead>
+                <table class="table">
 
-                <tr>
-                    <th>Nome</th>
-                    <th>Sobrenome</th>
-                    <th>Endereço</th>
-                    <th class="acoes">&#9881;</th>
-                </tr>
+                    <thead>
 
-                </thead>
-
-                <tbody>
-
-                <tr data-id=""
-                    class="layout hidden">
-                    <td class="nome"></td>
-                    <td class="sobrenome"></td>
-                    <td class="endereco"></td>
-                </tr>
-
-                <?php foreach ($people as $person): ?>
-                    <tr data-id="<?= $person->id ?>">
-
-                        <td class="nome">
-                            <?= $person->firstname ?>
-                        </td>
-
-                        <td class="sobrenome">
-                            <?= $person->lastname ?>
-                        </td>
-
-                        <td class="endereco">
-                            <?= $person->address ?>
-                        </td>
-
-                        <td class="acoes">
-                            <button class="btn btn-salvar invisible"></button>
-                            <button class="btn btn-editar"></button>
-                            <button class="btn btn-excluir"></button>
-                        </td>
-
+                    <tr>
+                        <th>Nome</th>
+                        <th>Sobrenome</th>
+                        <th>Endereço</th>
+                        <th class="acoes">&#9881;</th>
                     </tr>
-                <?php endforeach; ?>
-                </tbody>
 
-            </table>
+                    </thead>
+
+                    <tbody>
+
+                    <tr data-id=""
+                        class="layout hidden">
+                        <td class="nome"></td>
+                        <td class="sobrenome"></td>
+                        <td class="endereco"></td>
+                    </tr>
+
+                    <?php foreach ($people as $person): ?>
+                        <tr data-id="<?= $person->id ?>">
+
+                            <td class="nome">
+                                <?= $person->firstname ?>
+                            </td>
+
+                            <td class="sobrenome">
+                                <?= $person->lastname ?>
+                            </td>
+
+                            <td class="endereco">
+                                <?= $person->address ?>
+                            </td>
+
+                            <td class="acoes">
+                                <button class="btn btn-salvar invisible"></button>
+                                <button class="btn btn-editar"></button>
+                                <button class="btn btn-excluir"></button>
+                            </td>
+
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+
+                </table>
+            </div>
 
         </article>
 
@@ -81,8 +84,8 @@
     $(function () {
         var $table = $('table.table');
         $table.floatThead({
-            scrollContainer: function ($table) {
-                return $table.closest('article');
+            responsiveContainer: function ($table) {
+                return $table.closest('.wrapper');
             }
         });
     });

@@ -15,16 +15,26 @@ html, body {
 }
 
 .container {
-    padding-top: 15px;
+    height:   100%;
+    overflow: hidden;
 }
 
 main {
-    margin:       0 auto;
-    max-width:    1024px;
     background:   #ffffff;
+    margin:       0 auto;
+    width:        1024px;
     border:       1px solid #f8f8f8;
     border-raius: 4px;
+    display:      flex;
+    flex-flow:    column;
+    height:       100%;
 }
+
+header { flex: 0 1 60px; }
+
+article { flex: 1 1 auto; }
+
+footer { flex: 2 1 40px; }
 
 main, header {
     border-bottom: 1px solid #eee;
@@ -48,8 +58,7 @@ header, footer {
 }
 
 article {
-    max-height: 550px;
-    overflow:   auto;
+    overflow: auto;
 }
 
 .table {
