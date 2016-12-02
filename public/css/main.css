@@ -31,17 +31,18 @@ main {
 }
 
 header {
-    flex:        0 1 60px;
-    padding:     0 10px;
+    flex:        0 1 auto;
     align-items: center;
 }
 
-article { flex: 1 1 auto; }
+article {
+    flex:   1 1 auto;
+    height: 100%;
+}
 
 footer {
-    flex:       2 1 40px;
+    flex:       2 1 auto;
     border-top: 1px solid #eee;
-    padding:    10px 10px;
 }
 
 main, header {
@@ -51,6 +52,7 @@ main, header {
 header, footer {
     display:         flex;
     justify-content: space-between;
+    padding:         10px 10px;
 }
 
 .header-title {
