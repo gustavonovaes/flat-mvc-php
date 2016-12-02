@@ -83,7 +83,7 @@ article {
 }
 
 .table .acoes {
-    text-align: center;
+    border-left: 1px solid #eeeeee;
 }
 
 .footer-item {
@@ -148,6 +148,10 @@ td[contenteditable=true] {
 
 .hidden {
     display: none;
+}
+
+.text-center {
+    text-align: center !important;
 }
 
 [contenteditable=true]:empty:before {

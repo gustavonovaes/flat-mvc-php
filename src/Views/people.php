@@ -21,13 +21,24 @@
 
                 <table class="table">
 
+                    <colgroup>
+                        <col span="1"
+                             style="width: 25%;">
+                        <col span="1"
+                             style="width: 25%;">
+                        <col span="1"
+                             style="width: 40%;">
+                        <col span="1"
+                             style="width: 10%;">
+                    </colgroup>
+
                     <thead>
 
                     <tr>
                         <th>Nome</th>
                         <th>Sobrenome</th>
                         <th>Endereço</th>
-                        <th class="acoes">&#9881;</th>
+                        <th class="acoes text-center">&#9881;</th>
                     </tr>
 
                     </thead>
@@ -36,7 +47,7 @@
 
                     <!-- Layout -->
                     <tr data-id=""
-                        class="hidden pendente">
+                        class="layout hidden pendente">
 
                         <td class="nome"
                             contenteditable="true"
@@ -62,6 +73,12 @@
 
                     </tr>
 
+                    <tr class="nenhum-registro <?= (count($people) > 0) ? 'hidden': '' ?>">
+                        <td colspan="4"
+                            class="text-center">Nenhum Registro
+                        </td>
+                    </tr>
+
                     <?php foreach ($people as $person): ?>
                         <tr data-id="<?= $person->id ?>">
 
@@ -83,7 +100,7 @@
                                 <?= $person->address ?>
                             </td>
 
-                            <td class="acoes">
+                            <td class="acoes text-center">
                                 <button class="btn btn-cancelar"></button>
                                 <button class="btn btn-salvar"></button>
                                 <button class="btn btn-editar"></button>
@@ -141,10 +158,24 @@
         }, null, 'json').fail(error_handler);
     }
 
+
+    function toggleStatusPendente($tr) {
+
+        if ($tr.hasClass('pendente')) {
+            $tr.removeClass('pendente');
+            $tr.find('td[contenteditable]').attr('contenteditable', false);
+            return;
+        }
+
+        $tr.addClass('pendente');
+        $tr.find('td[contenteditable]').attr('contenteditable', true);
+    }
+
     $(function () {
 
-        // Setup
+        /* Setup */
 
+        // Fixa cabeçalho da Tabela
         var $table = $('table.table');
         $table.floatThead({
             responsiveContainer: function ($table) {
@@ -154,22 +185,30 @@
 
         var $body = $('body');
 
-        // Button Events
+        /* Button Events */
 
         $body.find('.btn-adicionar').click(function () {
-            var $tr = $table.find('tr.hidden').clone().removeClass('hidden');
+
+            // Esconde linha "Nenhum Registro"
+            $table.find('tr.nenhum-registro:not(.hidden)').addClass('hidden');
+
+            // Cria uma cópia da linha de layout e inclui na tabela
+            var $tr = $table.find('tr.layout').clone().removeClass('layout hidden');
             $table.find('tbody').append($tr);
             $tr.find('td:first').focus();
         });
 
         $body.on('click', '.btn-cancelar', function () {
+
+            // Se for um novo registro remove linha, se não, cancela a edição
             $tr = $(this).closest('tr');
-
             if ($tr.data('id')) {
-                return $tr.removeClass('pendente');
+                toggleStatusPendente($tr);
+                return;
             }
-
             $tr.remove();
+
+            $body.trigger('updateLinhaSemRegistro');
         });
 
         $body.on('click', '.btn-salvar', function () {
@@ -181,12 +220,11 @@
                 descricao = $tr.find('.sobrenome').text(),
                 endereco  = $tr.find('.endereco').text();
 
+
             if (id) {
                 return editar(id, nome, descricao, endereco).done(function () {
 
-                    $tr.removeClass('pendente');
-                    $tr.find('td[contenteditable]').attr('contenteditable', false);
-
+                    toggleStatusPendente($tr);
                     console.info('Atualizou #' + id);
                 });
             }
@@ -195,8 +233,7 @@
 
                 $tr.data('id', response.id);
 
-                $tr.removeClass('pendente');
-                $tr.find('td[contenteditable]').attr('contenteditable', false);
+                toggleStatusPendente($tr);
 
                 $body.trigger('updateTotalPessoas');
                 console.info('Salvou #' + response.id);
@@ -205,17 +242,22 @@
 
         $body.on('click', '.btn-editar', function () {
             $tr = $(this).closest('tr');
-
-            $tr.addClass('pendente');
-            $tr.find('td[contenteditable]').attr('contenteditable', true);
+            toggleStatusPendente($tr);
+            $tr.find('td:first').focus();
         });
 
-        // Custom Events
+        /* Custom Events */
 
         $body.on('updateTotalPessoas', function () {
             var total = $table.find('tbody tr:not(.hidden)').length;
             $body.find('.total-pessoas').text(total);
-        })
+        });
+
+        $body.on('updateLinhaSemRegistro', function () {
+            if ($table.find('tbody tr:not(.hidden)').length == 0) {
+                $table.find('tr.nenhum-registro.hidden').removeClass('hidden');
+            }
+        });
     });
 </script>
 
