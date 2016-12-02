@@ -5,15 +5,26 @@ set_exception_handler(function ($e) {
     $response = [
         'status' => 500,
         'title' => 'Erro Interno',
-        'message' => is_dev() ? $e->getMessage(): 'No keyboard detected press f1 to continue.',
+        'code' => $e->getCode(),
+        'line' => $e->getLine(),
+        'file' => $e->getFile(),
+        'message' => $e->getMessage(),
     ];
 
+    if (!is_dev()) {
+        $response['message'] = 'No keyboard detected press f1 to continue';
+        $response = filter($response, ['status', 'title', 'message']);
+    }
+
     if ($e instanceof \App\Exceptions\NotFoundException) {
-        $response = [
-            'status' => 404,
-            'title' => '404 - Not Found',
-            'message' => $e->getMessage(),
-        ];
+        $response['status'] = 404;
+        $response['title'] = '404 - Not Found';
+        $response['message'] = $e->getMessage();
+    }
+
+    if ($e instanceof \App\Exceptions\ValidationException) {
+        $response['status'] = 400;
+        $response['message'] = $e->getMessage();
     }
 
     $is_ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH']);
