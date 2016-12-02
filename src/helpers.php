@@ -22,7 +22,7 @@ function env($key, $default = null)
     return null;
 }
 
-function view ($template, array $data = [], $response_code = 200)
+function view($template, array $data = [], $response_code = 200)
 {
     http_response_code($response_code);
 
@@ -40,4 +40,13 @@ function view ($template, array $data = [], $response_code = 200)
 function is_dev()
 {
     return env('DEVELOPMENT') === '1';
+}
+
+function json(array $data = [], $response_code = 200)
+{
+    header('Content-type: application/json');
+
+    http_response_code($response_code);
+
+    die(json_encode($data));
 }

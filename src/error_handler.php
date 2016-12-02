@@ -19,9 +19,7 @@ set_exception_handler(function ($e) {
     $is_ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH']);
 
     if ($is_ajax) {
-        header('Content-type: application/json');
-        http_response_code($response['status']);
-        die($response['message']);
+        json($response, $response['status']);
     }
 
     view('error', $response, $response['status']);
