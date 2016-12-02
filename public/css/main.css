@@ -30,11 +30,19 @@ main {
     height:       100%;
 }
 
-header { flex: 0 1 60px; }
+header {
+    flex:        0 1 60px;
+    padding:     0 10px;
+    align-items: center;
+}
 
 article { flex: 1 1 auto; }
 
-footer { flex: 2 1 40px; }
+footer {
+    flex:       2 1 40px;
+    border-top: 1px solid #eee;
+    padding:    10px 10px;
+}
 
 main, header {
     border-bottom: 1px solid #eee;
@@ -43,17 +51,15 @@ main, header {
 header, footer {
     display:         flex;
     justify-content: space-between;
-    align-items:     baseline;
-    padding:         10px 15px;
 }
 
 .header-title {
-    flex: 2;
+    flex:      11;
+    font-size: 1.5em;
 }
 
 .header-button {
-    display: block;
-    width:   80px;
+    flex:    1;
     padding: 5px;
 }
 
