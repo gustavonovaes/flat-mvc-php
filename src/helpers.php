@@ -36,3 +36,8 @@ function view ($template, array $data = [], $response_code = 200)
 
     include $path;
 }
+
+function is_dev()
+{
+    return env('DEVELOPMENT') === '1';
+}
