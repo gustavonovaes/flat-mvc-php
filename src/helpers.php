@@ -50,3 +50,8 @@ function json(array $data = [], $response_code = 200)
 
     die(json_encode($data));
 }
+
+function filter(array $data, array $filter)
+{
+    return array_flip(array_intersect(array_flip($data), $filter));
+}
