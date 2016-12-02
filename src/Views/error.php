@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible"
           content="ie=edge">
-    <title>404 - Not Found</title>
+    <title><?= $title ?></title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto"
           rel="stylesheet">
@@ -52,7 +52,7 @@
 <div class="flex-center position-ref full-height">
     <div class="content">
         <div class="title m-b-md">
-            404
+            <?= $message ?>
         </div>
     </div>
 </div>
