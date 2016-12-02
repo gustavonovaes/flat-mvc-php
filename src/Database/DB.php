@@ -34,6 +34,15 @@ class DB
         self::$pdo = $pdo;
     }
 
+    public static function exec($sql, $params = [])
+    {
+        self::prepare($sql, $params);
+        $stmt = self::$pdo->prepare('SELECT LAST_INSERT_ID()'); // MySQL Coupling =/
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_NUM);
+    }
+
     public static function queryOne($sql, $params = [])
     {
         $row = self::queryRow($sql, $params);
@@ -77,7 +86,7 @@ class DB
         $stmt = $pdo->prepare($sql);
 
         foreach ($params as $key => $value) {
-            $stmt->bindParam($key, $value);
+            $stmt->bindValue($key, $value);
         }
 
         $stmt->execute();
