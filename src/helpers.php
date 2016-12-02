@@ -22,8 +22,10 @@ function env($key, $default = null)
     return null;
 }
 
-function view ($template, array $data = [])
+function view ($template, array $data = [], $response_code = 200)
 {
+    http_response_code($response_code);
+
     extract($data);
 
     $path = env('view_path') . "/{$template}.php";
