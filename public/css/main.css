@@ -103,7 +103,7 @@ article {
     width:               30px;
     background-position: center;
     background-repeat:   no-repeat;
-    background-size:     75% auto;
+    background-size:     65% auto;
 }
 
 /* Style */
@@ -114,6 +114,12 @@ article {
 
 .table tbody tr:nth-child(odd) {
     background: #f5f5f5;
+}
+
+.btn-cancelar {
+    background-color: #eeeeee;
+    border-color:     #cccccc;
+    background-image: url(../images/block-helper.png);
 }
 
 .btn-editar {
@@ -134,12 +140,25 @@ article {
     background-image: url(../images/content-save.png);
 }
 
+td[contenteditable=true] {
+    border: 1px dashed #ccc;
+}
+
 /* Helpers */
 
 .hidden {
     display: none;
 }
 
-.invisible {
-    visibility: hidden;
+[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    display: block; /* For Firefox */
+}
+
+tr.pendente .btn-editar, tr.pendente .btn-excluir {
+    display: none;
+}
+
+tr:not(.pendente) .btn-salvar, tr:not(.pendente) .btn-cancelar {
+    display: none;
 }
