@@ -9,7 +9,7 @@ class Router
     private $routes = [
         'GET' => [],
         'POST' => [],
-        'UPDATE' => [],
+        'PUT' => [],
         'DELETE' => []
     ];
 
@@ -23,9 +23,9 @@ class Router
         $this->add('POST', $uri, $callback);
     }
 
-    public function update($uri, $callback)
+    public function put($uri, $callback)
     {
-        $this->add('UPDATE', $uri, $callback);
+        $this->add('PUT', $uri, $callback);
     }
 
     public function delete($uri, $callback)
