@@ -40,7 +40,7 @@ class DB
         $stmt = self::$pdo->prepare('SELECT LAST_INSERT_ID()'); // MySQL Coupling =/
         $stmt->execute();
 
-        return $stmt->fetch(\PDO::FETCH_NUM);
+        return current($stmt->fetch(\PDO::FETCH_NUM));
     }
 
     public static function queryOne($sql, $params = [])
