@@ -29,7 +29,7 @@ function view ($template, array $data = [])
     $path = env('view_path') . "/{$template}.php";
 
     if (!is_readable($path)) {
-        throw new InvalidArgumentException('Template not exists');
+        throw new \App\Exceptions\ViewNotFoundException("Template '{$template}' not exists");
     }
 
     include $path;
