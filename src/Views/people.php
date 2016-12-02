@@ -10,7 +10,7 @@
                 Pessoas
             </div>
 
-            <button class="header-button btn-adicionar">
+            <button class="header-button btn btn-adicionar">
                 &#43; Adicionar
             </button>
         </header>
@@ -29,7 +29,7 @@
                         <col span="1"
                              style="width: 40%;">
                         <col span="1"
-                             style="width: 10%;">
+                             style="width: 15%;">
                     </colgroup>
 
                     <thead>
@@ -52,19 +52,19 @@
                         <td class="nome"
                             contenteditable="true"
                             placeholder="Nome..."
-                            data-pattern="/^[a-z ,.'-]+$/i"></td>
+                            data-pattern="^[a-z ,.'-]+$"></td>
 
                         <td class="sobrenome"
                             contenteditable="true"
                             placeholder="Sobrenome..."
-                            data-pattern="/^[a-z ,.'-]+$/i"></td>
+                            data-pattern="^[a-z ,.'-]+$"></td>
 
                         <td class="endereco"
                             contenteditable="true"
                             placeholder="Endereço..."
-                            data-pattern="/^\s*\S+(?:\s+\S+){2}/"></td>
+                            data-pattern="^\s*\S+(?:\s+\S+){2}"></td>
 
-                        <td class="acoes">
+                        <td class="acoes text-center">
                             <button class="btn btn-cancelar"></button>
                             <button class="btn btn-salvar"></button>
                             <button class="btn btn-editar"></button>
@@ -85,19 +85,19 @@
 
                             <td class="nome"
                                 contenteditable="false"
-                                data-pattern="/^[a-z ,.'-]+$/i">
+                                data-pattern="^[a-z ,.'-]+$">
                                 <?= $person->firstname ?>
                             </td>
 
                             <td class="sobrenome"
                                 contenteditable="false"
-                                data-pattern="/^[a-z ,.'-]+$/i">
+                                data-pattern="^[a-z ,.'-]+$">
                                 <?= $person->lastname ?>
                             </td>
 
                             <td class="endereco"
                                 contenteditable="false"
-                                data-pattern="/^\s*\S+(?:\s+\S+){2}/">
+                                data-pattern="^\s*\S+(?:\s+\S+){2}">
                                 <?= $person->address ?>
                             </td>
 
@@ -190,6 +190,24 @@
             }
         });
 
+        $table.on('keyup', 'td[contenteditable]', function () {
+            var $td = $(this);
+
+            if (!$td.text().length) {
+                $td.removeClass('invalido');
+                return;
+            }
+
+            var regex = new RegExp($td.data('pattern'), "i");
+
+            if ( !regex.test($td.text()) ) {
+                $td.addClass('invalido');
+                return;
+            }
+
+            $td.removeClass('invalido');
+        });
+
         var $body = $('body');
 
         /* Button Events */
@@ -222,6 +240,11 @@
             $tr = $(this).closest('tr');
 
             var id = $tr.data('id');
+
+            if ($tr.find('td.invalido').length) {
+                alert("Campo inválido");
+                return;
+            }
 
             var nome      = $tr.find('.nome').text(),
                 descricao = $tr.find('.sobrenome').text(),

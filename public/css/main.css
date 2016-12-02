@@ -96,7 +96,7 @@ article {
     display:             inline-block;
     border:              1px solid #fff;
     color:               #fff;
-    border-radius:       3px;
+    border-radius:       .5em;
     text-align:          center;
     white-space:         nowrap;
     vertical-align:      middle;
@@ -106,6 +106,17 @@ article {
     background-position: center;
     background-repeat:   no-repeat;
     background-size:     65% auto;
+    box-shadow:          0 2px #b1b1b1;
+    -webkit-transition:  none;
+    -moz-transition:     none;
+    transition:          none;
+    position:            relative;
+    outline:             none;
+}
+
+.btn:hover {
+    box-shadow: 0 1px #919191;
+    top:        2px;
 }
 
 /* Style */
@@ -116,6 +127,13 @@ article {
 
 .table tbody tr:nth-child(odd) {
     background: #f5f5f5;
+}
+
+.btn-adicionar {
+    background-color: deepskyblue;
+    border-color:     #00a0d7;
+    color:            white;
+    font-weight:      bold;
 }
 
 .btn-cancelar {
@@ -144,6 +162,10 @@ article {
 
 td[contenteditable=true] {
     border: 1px dashed #ccc;
+}
+
+td[contenteditable].invalido {
+    border-color: tomato;
 }
 
 /* Helpers */
