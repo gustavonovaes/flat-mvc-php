@@ -47,7 +47,7 @@
 
                     <!-- Layout -->
                     <tr data-id=""
-                        class="layout hidden pendente">
+                        class="pessoa layout hidden pendente">
 
                         <td class="nome"
                             contenteditable="true"
@@ -80,7 +80,8 @@
                     </tr>
 
                     <?php foreach ($people as $person): ?>
-                        <tr data-id="<?= $person->id ?>">
+                        <tr data-id="<?= $person->id ?>"
+                            class="pessoa">
 
                             <td class="nome"
                                 contenteditable="false"
@@ -158,6 +159,12 @@
         }, null, 'json').fail(error_handler);
     }
 
+    function excluir(id) {
+        return $.post('/people', {
+            '_method': 'DELETE',
+            'id':      id
+        }, null, 'json').fail(error_handler);
+    }
 
     function toggleStatusPendente($tr) {
 
@@ -246,15 +253,28 @@
             $tr.find('td:first').focus();
         });
 
+        $body.on('click', '.btn-excluir', function () {
+            $tr = $(this).closest('tr');
+
+            var id = $tr.data('id');
+
+            excluir(id).done(function (response) {
+                $tr.remove();
+                $body.trigger('updateLinhaSemRegistro');
+                $body.trigger('updateTotalPessoas');
+                console.info('Excluiu #' + id);
+            })
+        });
+
         /* Custom Events */
 
         $body.on('updateTotalPessoas', function () {
-            var total = $table.find('tbody tr:not(.hidden)').length;
+            var total = $table.find('tbody tr.pessoa:not(.pendente)').length;
             $body.find('.total-pessoas').text(total);
         });
 
         $body.on('updateLinhaSemRegistro', function () {
-            if ($table.find('tbody tr:not(.hidden)').length == 0) {
+            if ($table.find('tr.pessoa:not(.hidden)').length == 0) {
                 $table.find('tr.nenhum-registro.hidden').removeClass('hidden');
             }
         });

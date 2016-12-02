@@ -47,4 +47,14 @@ class People
 
         return DB::exec($sql, $params);
     }
+
+    public static function delete($id)
+    {
+        $sql = 'DELETE FROM people
+                WHERE id = :id';
+
+        return DB::exec($sql, [
+            'id' => $id
+        ]);
+    }
 }

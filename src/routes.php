@@ -10,4 +10,6 @@ $route->post('/people', 'App\Controllers\PeopleController::store');
 
 $route->put('/people', 'App\Controllers\PeopleController::update');
 
+$route->delete('/people', 'App\Controllers\PeopleController::delete');
+
 return $route;

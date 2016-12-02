@@ -34,4 +34,17 @@ class PeopleController
 
         json(['id' => $people->id], 200);
     }
+
+    public static function delete()
+    {
+        $people = People::get($_REQUEST['id']);
+
+        if (!$people) {
+            json(['message' => 'Not found'], 404);
+        }
+
+        People::delete($_REQUEST['id']);
+
+        json([], 200);
+    }
 }
