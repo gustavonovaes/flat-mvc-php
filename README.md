@@ -13,3 +13,11 @@ CREATE TABLE people
     address VARCHAR(255) NOT NULL
 );
 ```
+# Config
+```ini
+# Copy .env.sample to .env
+DB_DSN = "mysql:host=127.0.0.1;dbname=db"
+DB_USER = "root"
+DB_PASS = "toor"
+DEVELOPMENT=true
+```
