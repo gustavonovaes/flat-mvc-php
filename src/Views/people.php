@@ -52,17 +52,17 @@
                         <td class="nome"
                             contenteditable="true"
                             placeholder="Nome..."
-                            data-pattern="^[a-z ,.'-]+$"></td>
+                            data-pattern="^[a-z0-9\u00C0-\u00FF ,.'-]+$"></td>
 
                         <td class="sobrenome"
                             contenteditable="true"
                             placeholder="Sobrenome..."
-                            data-pattern="^[a-z ,.'-]+$"></td>
+                            data-pattern="^[a-z0-9\u00C0-\u00FF ,.'-]+$"></td>
 
                         <td class="endereco"
                             contenteditable="true"
                             placeholder="Endereço..."
-                            data-pattern="^\s*\S+(?:\s+\S+){2}"></td>
+                            data-pattern="^[a-z0-9\u00C0-\u00FF ,.'-]+$"></td>
 
                         <td class="acoes text-center">
                             <button class="btn btn-cancelar"></button>
@@ -85,19 +85,19 @@
 
                             <td class="nome"
                                 contenteditable="false"
-                                data-pattern="^[a-z ,.'-]+$">
+                                data-pattern="^[a-z0-9\u00C0-\u00FF ,.'-]+$">
                                 <?= $person->firstname ?>
                             </td>
 
                             <td class="sobrenome"
                                 contenteditable="false"
-                                data-pattern="^[a-z ,.'-]+$">
+                                data-pattern="^[a-z0-9\u00C0-\u00FF ,.'-]+$">
                                 <?= $person->lastname ?>
                             </td>
 
                             <td class="endereco"
                                 contenteditable="false"
-                                data-pattern="^\s*\S+(?:\s+\S+){2}">
+                                data-pattern="^[a-z0-9\u00C0-\u00FF ,.'-]+$">
                                 <?= $person->address ?>
                             </td>
 
