@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\People;
+use App\Validate;
 
 class PeopleController
 {
@@ -15,20 +16,35 @@ class PeopleController
 
     public static function store()
     {
-        $people_id = People::create($_REQUEST);
+        $params = filter($_REQUEST, ['firstname', 'lastname', 'address']);
+
+        Validate::check($params, [
+            'firstname' => 'min:4|max:255|string_common',
+            'lastname' => 'min:4|max:255|string_common',
+            'address' => 'min:4|max:255|string_common',
+        ]);
+
+        $people_id = People::create($params);
 
         json(['id' => $people_id], 201);
     }
 
     public static function update()
     {
-        $people = People::get($_REQUEST['id']);
+        $params = filter($_REQUEST, ['id', 'firstname', 'lastname', 'address']);
+
+        Validate::check($params, [
+            'id' => 'numeric',
+            'firstname' => 'min:4|max:255|string_common',
+            'lastname' => 'min:4|max:255|string_common',
+            'address' => 'min:4|max:255|string_common',
+        ]);
+
+        $people = People::get($params['id']);
 
         if (!$people) {
             json(['message' => 'Not found'], 404);
         }
-
-        $params = filter($_REQUEST, ['id', 'firstname', 'lastname', 'address']);
 
         People::update($params);
 
@@ -37,7 +53,9 @@ class PeopleController
 
     public static function delete()
     {
-        $people = People::get($_REQUEST['id']);
+        $id = (int) $_REQUEST['id'];
+
+        $people = People::get($id);
 
         if (!$people) {
             json(['message' => 'Not found'], 404);
