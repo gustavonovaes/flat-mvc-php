@@ -1,7 +1,5 @@
-# people-manager
-A flat PHP application to manager people. 
-
-[Online sample](http://104.236.68.60:8080)
+# flat-mvc
+A flat implementation of MVC in PHP
 
 # Database 
 ```sql
